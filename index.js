@@ -1,3 +1,5 @@
+import { Home } from "./modules/home.js";
+
 (function () {
   function el(tag, opts = {}) {
     const node = document.createElement(tag);
@@ -12,13 +14,6 @@
   }
 
   const pages = {
-    home() {
-      return `
-        <h1>Gaming with Amy</h1>
-        <p>Cozy games, horror-adjacent curiosities, and the occasional tangent.</p>
-        <p>New videos & shorts coming soon.</p>
-      `;
-    },
     videos() {
       return `
         <h1>Videos</h1>
@@ -45,11 +40,19 @@
 
   function render(key) {
     const main = document.querySelector("main");
-    const view = pages[key] || pages._notFound;
-    main.innerHTML = view();
-    document.querySelectorAll("nav button").forEach(btn => {
+    main.innerHTML = "";
+
+    if (key === "home") {
+      Home();
+    } else {
+      const view = pages[key] || pages._notFound;
+      main.innerHTML = view();
+    }
+
+    document.querySelectorAll("nav button").forEach((btn) => {
       btn.classList.toggle("selected", btn.dataset.page === key);
     });
+
     document.title = (key === "home" ? "Home" : capitalize(key)) + " | Gaming with Amy";
   }
 
@@ -67,7 +70,10 @@
       attrs: { href: "#" },
       parent: header,
     });
-    brand.addEventListener("click", (e) => { e.preventDefault(); render("home"); });
+    brand.addEventListener("click", (e) => {
+      e.preventDefault();
+      render("home");
+    });
 
     const nav = el("nav", { className: "site-nav", parent: header });
     [
@@ -86,6 +92,7 @@
     });
 
     el("main", { className: "site-main", parent: body });
+
     const footer = el("footer", { className: "site-footer", parent: body });
     footer.innerHTML = `<small>© ${new Date().getFullYear()} Gaming with Amy</small>`;
 
