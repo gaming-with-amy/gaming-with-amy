@@ -1,17 +1,8 @@
 import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
+import { el, $, $$, setTitle } from "./modules/utils.js";
 
 (function () {
-  function el(tag, opts = {}) {
-    const node = document.createElement(tag);
-    if (opts.className) node.className = opts.className;
-    if (opts.attrs) for (const [k, v] of Object.entries(opts.attrs)) node.setAttribute(k, v);
-    if (opts.text) node.textContent = opts.text;
-    if (opts.html) node.innerHTML = opts.html;
-    if (opts.parent) opts.parent.appendChild(node);
-    return node;
-  }
-
   const pages = {
     videos() {
       return `
@@ -38,25 +29,21 @@ import { headNav } from "./modules/headNav.js";
   };
 
   function render(key) {
-    const main = document.querySelector("main");
+    const main = $("main");
     main.innerHTML = "";
 
     if (key === "home") {
-      Home(main);
+      Home();
     } else {
       const view = pages[key] || pages._notFound;
       main.innerHTML = view();
     }
 
-    document.querySelectorAll(".nav-btn").forEach((btn) => {
+    $$(".nav-btn").forEach((btn) => {
       btn.classList.toggle("selected", btn.dataset.page === key);
     });
 
-    document.title = (key === "home" ? "Home" : capitalize(key)) + " | Gaming with Amy";
-  }
-
-  function capitalize(s) {
-    return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+    setTitle(key);
   }
 
   document.addEventListener("DOMContentLoaded", () => {
