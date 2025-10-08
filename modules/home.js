@@ -1,27 +1,37 @@
-export function Home(root) {
-  const main = root || document.querySelector("main");
-  if (!main) return;
+import { el, $ } from "./utils.js";
 
-  main.innerHTML = "";
-  const h1 = document.createElement("h1");
-  h1.textContent = "Welcome to Gaming with Amy";
+export function Home({ videos = [] } = {}) {
+  const main = $("main");
 
-  const p = document.createElement("p");
-  p.textContent = "Cozy games, comfy vibes, occasional detours into music and books.";
+  const first = videos[0];
+  const ytId = first?.id || "VIDEO_ID";
+  const title = first?.title || "Latest video coming soon";
+  const desc  = first?.description || "";
 
-  const vidWrap = document.createElement("div");
-  vidWrap.className = "video-container";
-  vidWrap.innerHTML = `
-    <iframe class="video" width="560" height="315"
-      src="https://www.youtube.com/embed/VIDEO_ID"
-      title="YouTube video player" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  `;
+  el("h1", { text: "Welcome to Gaming with Amy", parent: main });
+  el("p", { text: "Cozy games, comfy vibes, occasional detours into music and books.", parent: main });
 
-  const cta = document.createElement("div");
-  cta.className = "home-cta";
-  cta.innerHTML = `<button>More Videos</button><button>More Music</button>`;
+  const wrap = el("div", { className: "video-container", parent: main });
+  el("iframe", {
+    attrs: {
+      class: "video",
+      width: "560",
+      height: "315",
+      src: `https://www.youtube.com/embed/${ytId}`,
+      title: "YouTube video player",
+      frameborder: "0",
+      allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+      referrerpolicy: "strict-origin-when-cross-origin",
+      allowfullscreen: ""
+    },
+    parent: wrap
+  });
 
-  main.append(h1, p, vidWrap, cta);
+  const meta = el("div", { className: "video-meta", parent: main });
+  el("h2", { text: title, parent: meta });
+  if (desc) el("p", { text: desc, parent: meta });
+
+  const cta = el("div", { className: "home-cta", parent: main });
+  el("button", { text: "More Videos", parent: cta });
+  el("button", { text: "More Music", parent: cta });
 }

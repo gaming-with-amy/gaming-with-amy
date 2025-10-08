@@ -1,6 +1,7 @@
 import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
 import { el, $, $$, setTitle } from "./modules/utils.js";
+import videos from "./data/videos.json5";
 
 (function () {
   const pages = {
@@ -33,7 +34,7 @@ import { el, $, $$, setTitle } from "./modules/utils.js";
     main.innerHTML = "";
 
     if (key === "home") {
-      Home();
+      Home({ videos });
     } else {
       const view = pages[key] || pages._notFound;
       main.innerHTML = view();
