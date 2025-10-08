@@ -1,0 +1,10 @@
+[
+  {
+    id: "YnjYx0IdjDE", // YouTube ID
+    title: "My Favorite Cozy Games",
+    url: "https://www.youtube.com/watch?v=YnjYx0IdjDE",
+    description: "I’m Amy, and this is my very first video. I'll be sharing some of the cozy games that have captured my heart over the past year or so.",
+    publishedAt: "",      // fill in when you want (e.g., "2025-10-02")
+    tags: ["cozy gaming", "favorites", "intro"]
+  }
+]
