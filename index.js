@@ -1,12 +1,11 @@
 import { Home } from "./modules/home.js";
+import { headNav } from "./modules/headNav.js";
 
 (function () {
   function el(tag, opts = {}) {
     const node = document.createElement(tag);
     if (opts.className) node.className = opts.className;
-    if (opts.attrs) {
-      for (const [k, v] of Object.entries(opts.attrs)) node.setAttribute(k, v);
-    }
+    if (opts.attrs) for (const [k, v] of Object.entries(opts.attrs)) node.setAttribute(k, v);
     if (opts.text) node.textContent = opts.text;
     if (opts.html) node.innerHTML = opts.html;
     if (opts.parent) opts.parent.appendChild(node);
@@ -43,13 +42,13 @@ import { Home } from "./modules/home.js";
     main.innerHTML = "";
 
     if (key === "home") {
-      Home();
+      Home(main);
     } else {
       const view = pages[key] || pages._notFound;
       main.innerHTML = view();
     }
 
-    document.querySelectorAll("nav button").forEach((btn) => {
+    document.querySelectorAll(".nav-btn").forEach((btn) => {
       btn.classList.toggle("selected", btn.dataset.page === key);
     });
 
@@ -63,30 +62,21 @@ import { Home } from "./modules/home.js";
   document.addEventListener("DOMContentLoaded", () => {
     const body = document.body;
 
-    const header = el("header", { className: "site-header", parent: body });
-    const brand = el("a", {
-      className: "brand",
-      text: "Gaming with Amy",
-      attrs: { href: "#" },
-      parent: header,
-    });
-    brand.addEventListener("click", (e) => {
-      e.preventDefault();
-      render("home");
-    });
+    const { header, list } = headNav(() => render("home"));
+    body.appendChild(header);
 
-    const nav = el("nav", { className: "site-nav", parent: header });
     [
       ["home", "Home"],
       ["videos", "Videos"],
       ["about", "About"],
       ["contact", "Contact"],
     ].forEach(([key, label]) => {
+      const li = el("li", { parent: list });
       const btn = el("button", {
         className: "nav-btn",
         text: label,
         attrs: { "data-page": key, type: "button" },
-        parent: nav,
+        parent: li,
       });
       btn.addEventListener("click", () => render(key));
     });
