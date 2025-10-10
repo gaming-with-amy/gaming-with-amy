@@ -1,5 +1,6 @@
 import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
+import { Footer } from "./modules/footer.js";
 import { el, $, $$, setTitle } from "./modules/utils.js";
 import videos from "./data/videos.json5";
 
@@ -71,8 +72,7 @@ import videos from "./data/videos.json5";
 
     el("main", { className: "site-main", parent: body });
 
-    const footer = el("footer", { className: "site-footer", parent: body });
-    footer.innerHTML = `<small>© ${new Date().getFullYear()} Gaming with Amy</small>`;
+    Footer(body);
 
     render("home");
   });
