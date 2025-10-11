@@ -8,7 +8,7 @@ I'm kind of thinking I need a website. Nothing too complicated. Don't need to re
 
 **Update** 10/10/2025
 
-Keeping it modular. Crashed out a bit last night but feeling recharged. I like the idea of a contact page but have no clue how to do that...yet. 
+Keeping it modular. Crashed out a bit last night but feeling recharged. I like the idea of a contact page but have no clue how to do that...yet. But at least I can build a form to start with.
 
 ## What’s here so far
 - `index.js` — the main thing that swaps screens

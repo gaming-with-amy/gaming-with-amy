@@ -1,7 +1,9 @@
+
 import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
 import { Sidebar } from "./modules/sidebar.js";
 import { Footer } from "./modules/footer.js";
+import { Contact } from "./modules/contact.js";
 import { el, $, $$, setTitle } from "./modules/utils.js";
 import videos from "./data/videos.json5";
 
@@ -20,12 +22,6 @@ import videos from "./data/videos.json5";
         <p>This site is a work-in-progress.</p>
       `;
     },
-    contact() {
-      return `
-        <h1>Contact</h1>
-        <p>Business inquiries: <a href="mailto:emailplaceholder">email placeholder</a></p>
-      `;
-    },
     _notFound() {
       return `<h1>Not Found</h1><p>That page isn’t ready yet.</p>`;
     },
@@ -37,6 +33,8 @@ import videos from "./data/videos.json5";
 
     if (key === "home") {
       Home({ videos });
+    } else if (key === "contact") {
+      Contact();
     } else {
       const view = pages[key] || pages._notFound;
       main.innerHTML = view();
@@ -73,8 +71,12 @@ import videos from "./data/videos.json5";
 
     Sidebar({
       parent: body,
-      latestUrl: (videos && videos[0] && (videos[0].url || `https://www.youtube.com/watch?v=${videos[0].id}`)) || "#",
-      playlists: [], // need to make a playlist :)
+      latestUrl:
+        (videos &&
+          videos[0] &&
+          (videos[0].url || `https://www.youtube.com/watch?v=${videos[0].id}`)) ||
+        "#",
+      playlists: [],
     });
 
     el("main", { className: "site-main", parent: body });
