@@ -1,59 +1,91 @@
+import "./style/reset.css";
+import "./style/main.css";
+
+
 import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
 import { Sidebar } from "./modules/sidebar.js";
 import { Footer } from "./modules/footer.js";
 import { Contact } from "./modules/contact.js";
-import { ContactResponse } from "./modules/contactResponse.js"; // <- add
 import { el, $, $$, setTitle } from "./modules/utils.js";
 import videos from "./data/videos.json5";
 
 (function () {
   const pages = {
     videos() {
+      const items = (videos || [])
+        .map((v) => {
+          const url = v.url || `https://www.youtube.com/watch?v=${v.id}`;
+          const title = v.title || "Untitled";
+          const desc = v.description || "";
+          return `
+            <li class="item">
+              <a class="nav-anchor" href="${url}" target="_blank" rel="noopener">${title}</a>
+              ${desc ? `<p class="video-desc">${desc}</p>` : ""}
+            </li>
+          `;
+        })
+        .join("");
+
       return `
-        <h1>Videos</h1>
-        <p>Roundups, reviews, and recommendations. (Listing TBD.)</p>
+        <section class="video-page">
+          <h1 class="vid-page-head">Videos</h1>
+          <div class="list-container">
+            <h2 class="list-head">Latest uploads</h2>
+            <ul class="list">${items}</ul>
+          </div>
+        </section>
       `;
     },
+
     about() {
       return `
-        <h1>About</h1>
-        <p>Hi! I’m Amy. I like narrative games, gentle sims, weird web art, and snacks.</p>
-        <p>This site is a work-in-progress.</p>
+        <section class="a-container">
+          <h1>About</h1>
+          <p>Hi! I’m Amy. I like narrative games, gentle sims, weird web art, and snacks.</p>
+          <p>This site is a work-in-progress.</p>
+        </section>
       `;
     },
+
+    contact() {
+      Contact();
+      return ""; 
+    },
+
     _notFound() {
       return `<h1>Not Found</h1><p>That page isn’t ready yet.</p>`;
     },
   };
 
   function render(key) {
-    const main = $("main");
+    const main = $(".main-body");
     main.innerHTML = "";
 
     if (key === "home") {
-      Home({ videos });
+      Home({ videos }); 
     } else if (key === "contact") {
-      Contact();
-    } else if (key === "thanks") {
-      ContactResponse();
+      pages.contact(); 
     } else {
       const view = pages[key] || pages._notFound;
       main.innerHTML = view();
+      setTitle(key);
     }
 
     $$(".nav-btn").forEach((btn) => {
       btn.classList.toggle("selected", btn.dataset.page === key);
     });
 
-    setTitle(key);
+    if (key !== "home" && key !== "contact") setTitle(key);
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    const body = document.body;
+    const root = $(".main-container");
+    const main = $(".main-body");
+    const aside = $(".junior-body");
 
     const { header, list } = headNav(() => render("home"));
-    body.appendChild(header);
+    root.prepend(header);
 
     [
       ["home", "Home"],
@@ -61,9 +93,9 @@ import videos from "./data/videos.json5";
       ["about", "About"],
       ["contact", "Contact"],
     ].forEach(([key, label]) => {
-      const li = el("li", { parent: list });
+      const li = el("li", { className: "nav-li", parent: list });
       const btn = el("button", {
-        className: "nav-btn",
+        className: "nav-btn nav-anchor",
         text: label,
         attrs: { "data-page": key, type: "button" },
         parent: li,
@@ -72,7 +104,7 @@ import videos from "./data/videos.json5";
     });
 
     Sidebar({
-      parent: body,
+      parent: aside,
       latestUrl:
         (videos &&
           videos[0] &&
@@ -81,9 +113,8 @@ import videos from "./data/videos.json5";
       playlists: [],
     });
 
-    el("main", { className: "site-main", parent: body });
-
-    Footer(body);
+    
+    Footer(root);
 
     render("home");
   });

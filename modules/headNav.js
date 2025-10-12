@@ -21,5 +21,5 @@ export function headNav(onHome) {
   header.appendChild(brand);
   header.appendChild(nav);
 
-  return { header, nav, list };
+  return { header, list, brand };
 }
