@@ -1,9 +1,9 @@
-
 import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
 import { Sidebar } from "./modules/sidebar.js";
 import { Footer } from "./modules/footer.js";
 import { Contact } from "./modules/contact.js";
+import { ContactResponse } from "./modules/contactResponse.js"; // <- add
 import { el, $, $$, setTitle } from "./modules/utils.js";
 import videos from "./data/videos.json5";
 
@@ -35,6 +35,8 @@ import videos from "./data/videos.json5";
       Home({ videos });
     } else if (key === "contact") {
       Contact();
+    } else if (key === "thanks") {
+      ContactResponse();
     } else {
       const view = pages[key] || pages._notFound;
       main.innerHTML = view();

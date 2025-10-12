@@ -51,6 +51,10 @@ export function Contact() {
     const body = encodeURIComponent(
       `Name: ${name.value}\nEmail: ${emailInput.value}\n\n${msg.value}`
     );
+    setTimeout(() => {
+      const btn = document.querySelector('.nav-btn[data-page="thanks"]');
+      if (btn) btn.click();
+    }, 250);
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
   });
 
