@@ -5,13 +5,13 @@ module.exports = {
   mode: 'development',
   entry: './index.js',
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: 'main.bundle.js',             
+    path: path.resolve(__dirname, 'public'), 
     clean: true,
   },
   devtool: 'source-map',
   devServer: {
-    static: path.resolve(__dirname, 'dist'),
+    static: path.resolve(__dirname, 'public'),
     port: 5173,
     open: true,
     hot: true,
@@ -24,7 +24,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './templates/index.html', 
+      template: './templates/index.html',
       filename: 'index.html',
     }),
   ],
