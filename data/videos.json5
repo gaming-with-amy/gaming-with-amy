@@ -1,6 +1,12 @@
 [
   {
-    id: "YnjYx0IdjDE", // YouTube ID
+    id: "T66ZlkMGK9E",
+    title: "Wytchwood Review: A Cozy Crafting Fairytale?",
+    url: "https://www.youtube.com/watch?v=T66ZlkMGK9E",
+    description: "Wytchwood is a crafting adventure game set in a world of gothic fables and fairytales. In this review, I’ll break down the game’s art style, soundtrack, and gameplay. But does the story deliver? Let’s find out if Wytchwood is worth your time and money."
+  },
+  {
+    id: "YnjYx0IdjDE",
     title: "My Favorite Cozy Games",
     url: "https://www.youtube.com/watch?v=YnjYx0IdjDE",
     description: "I’m Amy, and this is my very first video. I'll be sharing some of the cozy games that have captured my heart over the past year or so."
