@@ -35,6 +35,8 @@ body{
   background: rgba(17, 10, 25, .7);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(199,183,255,.15);
+  display: flex;
+  justify-content: space-between;
 }
 .head-nav .home-link{
   display:inline-block;
@@ -42,10 +44,12 @@ body{
   text-decoration:none;
   color: var(--butter);
   font-weight:700;
+  margin-left: 5%;
 }
 .link-nav{
   display:flex;
   align-items:center;
+  margin-right: 5%;
 }
 .nav-list{
   display:flex;
