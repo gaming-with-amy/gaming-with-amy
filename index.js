@@ -1,10 +1,10 @@
 import "./style/reset.css";
 import "./style/main.css";
 
-
 import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
 import { Sidebar } from "./modules/sidebar.js";
+import { Videos } from "./modules/videos.js";
 import { Footer } from "./modules/footer.js";
 import { Contact } from "./modules/contact.js";
 import { el, $, $$, setTitle } from "./modules/utils.js";
@@ -63,20 +63,22 @@ import videos from "./data/videos.json5";
     main.innerHTML = "";
 
     if (key === "home") {
-      Home({ videos }); 
+      Home({ videos });
+      setTitle("home");
+    } else if (key === "videos") {
+      Videos({ videos });
+      setTitle("videos");
     } else if (key === "contact") {
-      pages.contact(); 
+      Contact();
     } else {
       const view = pages[key] || pages._notFound;
       main.innerHTML = view();
       setTitle(key);
     }
 
-    $$(".nav-btn").forEach((btn) => {
-      btn.classList.toggle("selected", btn.dataset.page === key);
-    });
-
-    if (key !== "home" && key !== "contact") setTitle(key);
+    $$(".nav-btn").forEach(btn =>
+      btn.classList.toggle("selected", btn.dataset.page === key)
+    );
   }
 
   document.addEventListener("DOMContentLoaded", () => {
