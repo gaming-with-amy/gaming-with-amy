@@ -26,6 +26,27 @@ function ensureLayout() {
   let junior = $(".junior-body");
   if (!junior) junior = el("aside", { className: "junior-body", parent: section });
 
+  const introWrap = el("section", {
+    className: "intro-message-container",
+    parent: junior, 
+  });
+
+  el("h2", {
+    className: "intro-message-head",
+    text: "Welcome to Gaming with Amy!",
+    parent: introWrap,
+  });
+
+  const introPanel = el("article", {
+    className: "intro-message",
+    parent: introWrap,
+  });
+
+  el("p", {
+    text: "Dive into the wonderful world of cozy games, books, and everything soft and squishy. From the newest indie game reviews to my latest squishmallow haul, join me on my cozy adventures!",
+    parent: introPanel,
+  });
+
   let footer = $(".site-footer");
   if (!footer) footer = el("footer", { className: "site-footer", parent: root });
 
