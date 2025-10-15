@@ -1,10 +1,24 @@
 export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#" } = {}) {
-  const aside = document.createElement("aside");
-  aside.className = "site-sidebar";
+  const host = parent || document.body;
 
-  const links = document.createElement("section");
+  let aside;
+  if (host.tagName?.toLowerCase() === "aside" && host.classList.contains("left-rail")) {
+    aside = host;
+  } else {
+    aside = document.createElement("aside");
+    aside.className = "left-rail sidebar";
+    host.appendChild(aside);
+  }
+
+  aside.innerHTML = "";
+
+  const linksCard = document.createElement("section");
+  linksCard.className = "sidebar-card latest";
+
   const h2 = document.createElement("h2");
+  h2.className = "sidebar-head";
   h2.textContent = "Quick Links";
+
   const ul = document.createElement("ul");
   ul.className = "sidebar-links";
 
@@ -17,7 +31,7 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
     const li = document.createElement("li");
     const a = document.createElement("a");
     a.textContent = label;
-    a.href = href;
+    a.href = href || "#";
     if (external) {
       a.target = "_blank";
       a.rel = "noopener";
@@ -26,20 +40,28 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
     ul.appendChild(li);
   });
 
-  links.appendChild(h2);
-  links.appendChild(ul);
-  aside.appendChild(links);
+  linksCard.appendChild(h2);
+  linksCard.appendChild(ul);
+  aside.appendChild(linksCard);
 
-  const wrap = document.createElement("section");
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "sidebar-toggle";
-  btn.textContent = "Playlists";
+  const listsCard = document.createElement("section");
+  listsCard.className = "sidebar-card playlists";
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "sidebar-toggle";
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.textContent = "Playlists";
 
   const list = document.createElement("ul");
-  list.className = "sidebar-playlists hidden";
+  list.className = "playlist-list";
+  list.hidden = true; 
 
-  (playlists.length ? playlists : [{ label: "My Favorite Cozy Games", href: latestUrl }]).forEach(p => {
+  const finalPlaylists = playlists.length
+    ? playlists
+    : [{ label: "My Favorite Cozy Games", href: latestUrl }];
+
+  finalPlaylists.forEach((p) => {
     const li = document.createElement("li");
     const a = document.createElement("a");
     a.textContent = p.label || "Playlist";
@@ -50,14 +72,15 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
     list.appendChild(li);
   });
 
-  btn.addEventListener("click", () => {
-    list.classList.toggle("hidden");
+  toggle.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+    list.hidden = isOpen;
   });
 
-  wrap.appendChild(btn);
-  wrap.appendChild(list);
-  aside.appendChild(wrap);
+  listsCard.appendChild(toggle);
+  listsCard.appendChild(list);
+  aside.appendChild(listsCard);
 
-  (parent || document.body).appendChild(aside);
   return aside;
 }
