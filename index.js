@@ -87,7 +87,7 @@ import videos from "./data/videos.json5";
     const aside = $(".junior-body");
 
     const { header, list } = headNav(() => render("home"));
-    root.prepend(header);
+    document.body.prepend(header);
 
     [
       ["home", "Home"],
