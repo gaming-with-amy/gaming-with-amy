@@ -100,19 +100,16 @@ const pages = {
 
 function render(key) {
   const main = $(".main-body");
-  if (!main) {
-    console.error("[render] .main-body not found");
-    return;
-  }
+  if (!main) return;
+
   main.innerHTML = "";
 
   if (key === "home") {
     Home({ videos });
+  } else if (key === "contact") {
+    Contact();
   } else if (key === "videos") {
-    
-    Videos({ videos });
-    const view = pages.videos;
-    main.innerHTML = view();
+    main.innerHTML = pages.videos();
   } else {
     const view = pages[key] || pages._notFound;
     main.innerHTML = view();

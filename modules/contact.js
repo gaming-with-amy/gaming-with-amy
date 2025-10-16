@@ -3,7 +3,12 @@ import { el, $, setTitle } from "./utils.js";
 window.__AMY_EMAIL = window.__AMY_EMAIL || "amysidwell481@gmail.com";
 
 export function Contact() {
-  const main = $("main");
+  const main = $(".main-body") || $("main");
+  if (!main) {
+    console.error("[Contact] No container found (.main-body or <main>)");
+    return;
+  }
+
   const email = window.__AMY_EMAIL;
 
   main.innerHTML = "";
@@ -32,25 +37,20 @@ export function Contact() {
     parent: form,
   });
 
-  const submit = el("button", {
+  el("button", {
     text: "Send",
     attrs: { type: "submit" },
     parent: form,
   });
 
   const alt = el("p", { parent: wrap });
-  el("a", {
-    text: "Or email me directly",
-    attrs: { href: "mailto:" + email },
-    parent: alt,
-  });
+  el("a", { text: "Or email me directly", attrs: { href: "mailto:" + email }, parent: alt });
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const subject = encodeURIComponent("Website contact");
-    const body = encodeURIComponent(
-      `Name: ${name.value}\nEmail: ${emailInput.value}\n\n${msg.value}`
-    );
+    const body = encodeURIComponent(`Name: ${name.value}\nEmail: ${emailInput.value}\n\n${msg.value}`);
+    
     setTimeout(() => {
       const btn = document.querySelector('.nav-btn[data-page="thanks"]');
       if (btn) btn.click();
