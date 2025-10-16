@@ -47,10 +47,7 @@ function ensureLayout() {
     parent: introPanel,
   });
 
-  let footer = $(".site-footer");
-  if (!footer) footer = el("footer", { className: "site-footer", parent: root });
-
-  return { root, section, leftRail, main, junior, footer };
+  return { root, section, leftRail, main, junior };
 }
 
 const pages = {
@@ -129,7 +126,7 @@ function render(key) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const { root, leftRail, junior, footer } = ensureLayout();
+  const { root, leftRail, junior } = ensureLayout();
 
   const { header, list } = headNav(() => render("home"));
   
@@ -161,10 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
     playlists: [],
   });
 
-  if (!footer.dataset.bound) {
-    Footer(root);
-    footer.dataset.bound = "1";
-  }
+  
+  Footer(root);
+    
 
   render("home");
 });
