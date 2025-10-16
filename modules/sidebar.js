@@ -25,6 +25,7 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
   const items = [
     { label: "Latest video", href: latestUrl, external: true },
     { label: "YouTube channel", href: "https://www.youtube.com/@GamingWithAmy89", external: true },
+    { label: "GitHub", href: "https://github.com/gaming-with-amy", external: true },
   ];
 
   items.forEach(({ label, href, external }) => {
@@ -55,7 +56,7 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
 
   const list = document.createElement("ul");
   list.className = "playlist-list";
-  list.hidden = true; 
+  list.hidden = true;
 
   const finalPlaylists = playlists.length
     ? playlists
