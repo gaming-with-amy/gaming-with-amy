@@ -247,6 +247,85 @@ body{
 .left-rail .playlists li{ margin-top:6px; }
 .left-rail .playlists a:hover{ text-decoration:underline; }
 
+.form-page {
+  width: min(900px, 95%);
+  margin-inline: auto;
+  padding-bottom: 24px;
+}
+
+.form-head {
+  margin-top: 14px;
+  margin-bottom: 6px;
+  text-align: center;
+  font-weight: 800;
+  color: var(--lav);
+}
+
+.form-copy-p {
+  padding-inline: 5%;
+  margin-bottom: 18px;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.form-body {
+  background: rgba(255,250,242,0.06); 
+  border: 1px solid rgba(199,183,255,.18);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.contact-form {
+  display: grid;
+  gap: 12px;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  color: var(--paper);
+  background: rgba(255,250,242,.08);
+  border: 1.5px solid rgba(199,183,255,.22);
+  border-radius: 10px;
+  padding: 10px 12px;
+  line-height: 1.35;
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.form-control:focus {
+  border-color: var(--lav);
+  box-shadow: 0 0 0 3px rgba(199,183,255,.25);
+  background: rgba(255,250,242,.10);
+}
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  user-select: none;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 0;
+  cursor: pointer;
+}
+
+.btn-lg { font-size: 1rem; line-height: 1.2; }
+.btn-block { width: 60%; margin: 8px auto 0; box-shadow: 3px 3px 3px rgba(0,0,0,.25); }
+
+.btn-primary {
+  color: #261a0e;
+  background: linear-gradient(180deg, var(--butter), #ffb94d);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.03);
+}
+
+@media (max-width: 900px) {
+  .form-page { width: 100%; }
+  .btn-block { width: 100%; }
+}
+
 @media (max-width: 900px){
   .section-container{ flex-direction: column; gap: 20px; }
   .left-rail.sidebar,

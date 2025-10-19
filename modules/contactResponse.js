@@ -12,7 +12,7 @@ export function ContactResponse() {
 
   el("h1", { text: "Thanks! Your message is on its way.", parent: wrap });
   el("p", {
-    html: `If you don’t hear back soon, email me directly at <a href="mailto:${email}">${email}</a>.`,
+    html: `If you don’t hear back soon, you can email me directly at <a href="mailto:${email}">${email}</a>.`,
     parent: wrap,
   });
 

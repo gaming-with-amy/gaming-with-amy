@@ -105,7 +105,6 @@ function render(key) {
     return;
   }
 
-  // wipe current view
   main.innerHTML = "";
 
   switch (key) {
