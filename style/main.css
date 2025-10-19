@@ -27,9 +27,9 @@ body{
 }
 
 .main-container{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
+  min-height: 100vh;     
+  display: flex;
+  flex-direction: column; 
 }
 
 .head-nav{
@@ -87,6 +87,7 @@ body{
   display:flex;
   gap: 24px;
   padding: 24px clamp(12px, 4vw, 32px);
+  flex: 1 0 auto;         
 }
 
 .left-rail.sidebar{
@@ -158,12 +159,15 @@ body{
   padding: 12px;
 }
 
-/* Footer */
 .site-footer{
   color: var(--muted);
   padding: 18px 16px 28px;
   text-align:center;
   border-top: 1px solid rgba(199,183,255,.12);
+  position: static;       
+  margin-top: auto;       
+  width: 100%;
+  flex-shrink: 0;
 }
 
 .home-hero h1{ margin:0 0 4px; color: var(--lav); }
