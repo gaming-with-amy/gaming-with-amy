@@ -99,27 +99,44 @@ const pages = {
 };
 
 function render(key) {
-  const main = $(".main-body");
-  if (!main) return;
-
-  main.innerHTML = "";
-
-  if (key === "home") {
-    Home({ videos });
-  } else if (key === "contact") {
-    Contact();
-  } else if (key === "videos") {
-    main.innerHTML = pages.videos();
-  } else {
-    const view = pages[key] || pages._notFound;
-    main.innerHTML = view();
+  const main = document.querySelector(".main-body");
+  if (!main) {
+    console.error("[render] .main-body not found");
+    return;
   }
 
-  $$(".nav-btn").forEach((btn) => {
+  // wipe current view
+  main.innerHTML = "";
+
+  switch (key) {
+    case "home":
+      Home({ videos });
+      setTitle("home");
+      break;
+
+    case "videos":
+      main.innerHTML = pages.videos();
+      setTitle("videos");
+      break;
+
+    case "about":
+      main.innerHTML = pages.about();
+      setTitle("about");
+      break;
+
+    case "contact":
+      Contact();
+      break;
+
+    default:
+      main.innerHTML = pages._notFound();
+      setTitle("not found");
+      break;
+  }
+
+  document.querySelectorAll(".nav-btn").forEach((btn) => {
     btn.classList.toggle("selected", btn.dataset.page === key);
   });
-
-  if (key !== "home" && key !== "contact") setTitle(key);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
