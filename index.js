@@ -70,8 +70,11 @@ function render(key) {
       break;
 
     case "videos":
-      Videos({ videos });
-      setTitle("videos");
+      Videos({
+        videos,
+        mainTarget: document.querySelector(".main-body"),
+        listTarget: document.querySelector(".junior-body"),
+      });
       break;
 
     case "about":

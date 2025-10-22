@@ -1,11 +1,11 @@
 import { el, $, setTitle } from "./utils.js";
 
-export function Videos({ videos = [] } = {}) {
-  const main = $(".main-body") || $("main");
+export function Videos({ videos = [], mainTarget, listTarget } = {}) {
+  const main = mainTarget || ($(".main-body") || $("main"));
+  const rail = listTarget || $(".junior-body");
   if (!main) return;
 
   main.innerHTML = "";
-
   const page = el("section", { className: "video-page", parent: main });
   el("h1", { className: "vid-page-head", text: "Videos", parent: page });
 
@@ -13,10 +13,6 @@ export function Videos({ videos = [] } = {}) {
 
   const playerWrap = el("div", { className: "video-container", parent: layout });
   const meta = el("div", { className: "video-meta", parent: layout });
-
-  const listWrap = el("div", { className: "list-container", parent: layout });
-  el("h2", { className: "list-head", text: "Latest uploads", parent: listWrap });
-  const ul = el("ul", { className: "list", parent: listWrap });
 
   function renderPlayer(v) {
     playerWrap.innerHTML = "";
@@ -40,22 +36,33 @@ export function Videos({ videos = [] } = {}) {
     if (v.description) el("p", { className: "video-desc", text: v.description, parent: meta });
   }
 
-  videos.forEach((v, idx) => {
-    const li = el("li", { className: "item", parent: ul });
-    const btn = el("button", {
-      className: "nav-anchor",
-      text: v.title || "Untitled",
-      parent: li,
-    });
-    btn.addEventListener("click", () => {
-      renderPlayer(v);
-      ul.querySelectorAll(".item").forEach((n) => n.classList.remove("item-selected"));
-      li.classList.add("item-selected");
-      setTitle("videos"); 
-    });
-    if (idx === 0) li.classList.add("item-selected");
-  });
-
   if (videos[0]) renderPlayer(videos[0]);
+
+  if (rail) {
+    const intro = rail.querySelector(".intro-message-container");
+    if (intro) intro.remove();
+
+    let listCard = rail.querySelector(".uploads-card");
+    if (!listCard) {
+      listCard = el("section", { className: "uploads-card sidebar-card", parent: rail });
+    } else {
+      listCard.innerHTML = "";
+    }
+
+    el("h2", { className: "list-head", text: "Latest uploads", parent: listCard });
+    const ul = el("ul", { className: "list", parent: listCard });
+
+    videos.forEach((v, idx) => {
+      const li = el("li", { className: "item", parent: ul });
+      const btn = el("button", { className: "nav-anchor", text: v.title || "Untitled", parent: li });
+      btn.addEventListener("click", () => {
+        renderPlayer(v);
+        ul.querySelectorAll(".item").forEach((n) => n.classList.remove("item-selected"));
+        li.classList.add("item-selected");
+      });
+      if (idx === 0) li.classList.add("item-selected");
+    });
+  }
+
   setTitle("videos");
 }
