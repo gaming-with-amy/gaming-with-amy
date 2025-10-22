@@ -4,7 +4,6 @@ import "./style/main.css";
 import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
 import { Sidebar } from "./modules/sidebar.js";
-import { Videos } from "./modules/videos.js";
 import { Footer } from "./modules/footer.js";
 import { Contact } from "./modules/contact.js";
 import { el, $, $$, setTitle } from "./modules/utils.js";
@@ -26,69 +25,120 @@ function ensureLayout() {
   let junior = $(".junior-body");
   if (!junior) junior = el("aside", { className: "junior-body", parent: section });
 
-  if (!junior.querySelector(".intro-message-container")) {
-    const introWrap = el("section", { className: "intro-message-container", parent: junior });
-    el("h2", { className: "intro-message-head", text: "Welcome to Gaming with Amy!", parent: introWrap });
-    const introPanel = el("article", { className: "intro-message", parent: introWrap });
-    el("p", {
-      text:
-        "Dive into the wonderful world of cozy games, books, and everything soft and squishy. From the newest indie game reviews to my latest squishmallow haul, join me on my cozy adventures!",
-      parent: introPanel,
-    });
-  }
-
   return { root, section, leftRail, main, junior };
 }
 
-const pages = {
-  about() {
-    return `
-      <section class="a-container">
-        <h1>About</h1>
-        <p>Hi! I’m Amy. I like narrative games, gentle sims, weird web art, and snacks.</p>
-        <p>This site is a work-in-progress.</p>
-      </section>
-    `;
-  },
-  _notFound() {
-    return `<h1>Not Found</h1><p>That page isn’t ready yet.</p>`;
-  },
-};
+function buildIntro(junior) {
+  junior.innerHTML = "";
+  const introWrap = el("section", { className: "intro-message-container", parent: junior });
+  el("h2", { className: "intro-message-head", text: "Welcome to Gaming with Amy!", parent: introWrap });
+  const introPanel = el("article", { className: "intro-message", parent: introWrap });
+  el("p", {
+    text:
+      "Dive into the wonderful world of cozy games, books, and everything soft and squishy. From the newest indie game reviews to my latest squishmallow haul, join me on my cozy adventures!",
+    parent: introPanel,
+  });
+}
+
+function renderVideoToMain(video) {
+  const main = $(".main-body");
+  if (!main) return;
+  main.innerHTML = "";
+
+  const title = video?.title || "Videos";
+  const desc  = video?.description || "";
+  const ytId  = video?.id || "VIDEO_ID";
+
+  el("h1", { className: "vid-page-head", text: "Videos", parent: main });
+
+  const wrap = el("div", { className: "video-container", parent: main });
+  const frameWrap = el("div", { className: "vid-div", parent: wrap });
+  el("iframe", {
+    attrs: {
+      class: "video",
+      src: `https://www.youtube.com/embed/${ytId}`,
+      title,
+      frameborder: "0",
+      allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+      referrerpolicy: "strict-origin-when-cross-origin",
+      allowfullscreen: ""
+    },
+    parent: frameWrap
+  });
+
+  const meta = el("div", { className: "video-meta", parent: main });
+  el("h2", { text: title, parent: meta });
+  if (desc) el("p", { className: "video-desc", text: desc, parent: meta });
+}
+
+function showLatestUploads(junior, vids, onSelect) {
+  junior.innerHTML = "";
+
+  const listWrap = el("section", { className: "list-container", parent: junior });
+  el("h2", { className: "list-head", text: "Latest uploads", parent: listWrap });
+
+  const ul = el("ul", { className: "list", parent: listWrap });
+
+  (vids || []).forEach((v, idx) => {
+    const li = el("li", { className: "item", parent: ul });
+    const btn = el("button", { className: "nav-anchor", text: v.title || "Untitled", parent: li });
+    btn.type = "button";
+
+    btn.addEventListener("click", () => {
+      ul.querySelectorAll(".item").forEach(n => n.classList.remove("item-selected"));
+      li.classList.add("item-selected");
+      onSelect?.(v);
+    });
+
+    if (idx === 0) li.classList.add("item-selected");
+  });
+}
 
 function render(key) {
-  const main = $(".main-body");
-  if (!main) {
-    console.error("[render] .main-body not found");
-    return;
-  }
-  main.innerHTML = "";
+  const main   = $(".main-body");
+  const junior = $(".junior-body");
+  if (!main || !junior) return;
 
   switch (key) {
     case "home":
-      Home({ videos, target: document.querySelector(".main-body") });
+      main.innerHTML = "";
+      Home({ videos });
+      buildIntro(junior);
       setTitle("home");
       break;
 
     case "videos":
-      Videos({
-        videos,
-        mainTarget: document.querySelector(".main-body"),
-        listTarget: document.querySelector(".junior-body"),
+      renderVideoToMain(videos?.[0]);
+      showLatestUploads(junior, videos, (v) => {
+        renderVideoToMain(v);
+        setTitle("videos");
       });
+      setTitle("videos");
       break;
 
     case "about":
-      main.innerHTML = pages.about();
+      main.innerHTML = `
+        <section class="a-container">
+          <h1>About</h1>
+          <p>Hi! I’m Amy. I like narrative games, gentle sims, weird web art, and snacks.</p>
+          <p>This site is a work-in-progress.</p>
+        </section>
+      `;
+
+      buildIntro(junior);
       setTitle("about");
       break;
 
     case "contact":
-      Contact();            
+      main.innerHTML = "";
+      Contact();               
+      buildIntro(junior);      
       setTitle("contact");
       break;
 
     default:
-      main.innerHTML = pages._notFound();
+      main.innerHTML = `<h1>Not Found</h1><p>That page isn’t ready yet.</p>`;
+      buildIntro(junior);
       setTitle("not found");
       break;
   }
@@ -127,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
         videos[0] &&
         (videos[0].url || `https://www.youtube.com/watch?v=${videos[0].id}`)) ||
       "#",
-    playlists: [], 
+    playlists: [],
   });
 
   Footer(root);
