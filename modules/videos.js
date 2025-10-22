@@ -2,51 +2,60 @@ import { el, $, setTitle } from "./utils.js";
 
 export function Videos({ videos = [] } = {}) {
   const main = $(".main-body") || $("main");
+  if (!main) return;
+
   main.innerHTML = "";
-  
-  el("h1", { text: "Videos", parent: main });
 
-   if (!videos.length) {
-     el("p", { text: "No videos yet—check back soon.", parent: main });
-     setTitle("videos");
-     return;
-   }
+  const page = el("section", { className: "video-page", parent: main });
+  el("h1", { className: "vid-page-head", text: "Videos", parent: page });
 
-   const first = videos[0];
-   let playerEl = buildPlayer(ytIdFrom(first.id || first.url), first.title);
-   main.appendChild(playerEl);
+  const layout = el("div", { className: "videos-layout", parent: page });
 
-   const list = el("ul", { className: "video-list", parent: main });
+  const playerWrap = el("div", { className: "video-container", parent: layout });
+  const meta = el("div", { className: "video-meta", parent: layout });
 
-   videos.forEach((v, i) => {
-     const li = el("li", {
-       className: "video-item" + (i === 0 ? " item-selected" : ""),
-       parent: list,
-     });
+  const listWrap = el("div", { className: "list-container", parent: layout });
+  el("h2", { className: "list-head", text: "Latest uploads", parent: listWrap });
+  const ul = el("ul", { className: "list", parent: listWrap });
 
-     const btn = el("button", {
-       className: "video-link",
-       text: v.title || "Untitled",
-       attrs: { type: "button" },
-       parent: li,
-     });
+  function renderPlayer(v) {
+    playerWrap.innerHTML = "";
+    const vidDiv = el("div", { className: "vid-div", parent: playerWrap });
+    el("iframe", {
+      attrs: {
+        class: "video",
+        src: `https://www.youtube.com/embed/${v.id}`,
+        title: v.title || "YouTube video",
+        frameborder: "0",
+        allow:
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+        referrerpolicy: "strict-origin-when-cross-origin",
+        allowfullscreen: "",
+      },
+      parent: vidDiv,
+    });
 
-     if (v.description) {
-       el("p", { className: "video-desc", text: v.description, parent: li });
-     }
+    meta.innerHTML = "";
+    el("h2", { text: v.title || "Untitled", parent: meta });
+    if (v.description) el("p", { className: "video-desc", text: v.description, parent: meta });
+  }
 
-     btn.addEventListener("click", () => {
-       const id = ytIdFrom(v.id || v.url);
-       const next = buildPlayer(id, v.title);
-       playerEl.replaceWith(next);
-       playerEl = next;
+  videos.forEach((v, idx) => {
+    const li = el("li", { className: "item", parent: ul });
+    const btn = el("button", {
+      className: "nav-anchor",
+      text: v.title || "Untitled",
+      parent: li,
+    });
+    btn.addEventListener("click", () => {
+      renderPlayer(v);
+      ul.querySelectorAll(".item").forEach((n) => n.classList.remove("item-selected"));
+      li.classList.add("item-selected");
+      setTitle("videos"); 
+    });
+    if (idx === 0) li.classList.add("item-selected");
+  });
 
-       Array.from(list.children).forEach((n) => n.classList.remove("item-selected"));
-       li.classList.add("item-selected");
-       setTitle(v.title || "videos");
-       window.scrollTo({ top: 0, behavior: "smooth" });
-     });
-   });
-   
-   setTitle(first.title || "videos");
- }
+  if (videos[0]) renderPlayer(videos[0]);
+  setTitle("videos");
+}

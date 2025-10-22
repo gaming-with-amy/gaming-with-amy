@@ -1,7 +1,9 @@
 import { el, $ } from "./utils.js";
 
-export function Home({ videos = [] } = {}) {
-  const main = $("main");
+export function Home({ videos = [], target } = {}) {
+  const main = target || $(".main-body") || $("main");
+
+  main.innerHTML = ""; 
 
   const first = videos[0];
   const ytId = first?.id || "VIDEO_ID";
@@ -35,3 +37,6 @@ export function Home({ videos = [] } = {}) {
   el("button", { text: "More Videos", parent: cta });
   el("button", { text: "More Music", parent: cta });
 }
+
+
+
