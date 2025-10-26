@@ -4,17 +4,33 @@ import "./style/main.css";
 import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
 import { Sidebar } from "./modules/sidebar.js";
+import { Videos } from "./modules/videos.js";
+import { Blog } from "./modules/blog.js";
 import { Footer } from "./modules/footer.js";
 import { Contact } from "./modules/contact.js";
 import { el, $, $$, setTitle } from "./modules/utils.js";
+
 import videos from "./data/videos.json5";
+import blogs from "./data/blogs.json5";
+
+function makeIntroPanel(host) {
+  host.innerHTML = "";
+  const introWrap = el("section", { className: "intro-message-container", parent: host });
+  el("h2", { className: "intro-message-head", text: "Welcome to Gaming with Amy!", parent: introWrap });
+  const introPanel = el("article", { className: "intro-message", parent: introWrap });
+  el("p", {
+    text:
+      "Dive into the wonderful world of cozy games, books, and everything soft and squishy. From the newest indie game reviews to my latest squishmallow haul, join me on my cozy adventures!",
+    parent: introPanel,
+  });
+}
 
 function ensureLayout() {
   let root = $(".main-container");
   if (!root) root = el("div", { className: "main-container", parent: document.body });
 
   let section = $(".section-container");
-  if (!section) section = el("div", { className: "section-container", parent: root });
+  if (!section) section = el("section", { className: "section-container", parent: root });
 
   let leftRail = $(".left-rail");
   if (!leftRail) leftRail = el("aside", { className: "left-rail sidebar", parent: section });
@@ -25,23 +41,16 @@ function ensureLayout() {
   let junior = $(".junior-body");
   if (!junior) junior = el("aside", { className: "junior-body", parent: section });
 
-  return { root, section, leftRail, main, junior };
-}
+  if (!junior.querySelector(".intro-message-container")) makeIntroPanel(junior);
 
-function buildIntro(junior) {
-  junior.innerHTML = "";
-  const introWrap = el("section", { className: "intro-message-container", parent: junior });
-  el("h2", { className: "intro-message-head", text: "Welcome to Gaming with Amy!", parent: introWrap });
-  const introPanel = el("article", { className: "intro-message", parent: introWrap });
-  el("p", {
-    text:
-      "Dive into the wonderful world of cozy games, books, and everything soft and squishy. From the newest indie game reviews to my latest squishmallow haul, join me on my cozy adventures!",
-    parent: introPanel,
-  });
+  let footer = $(".site-footer");
+  if (!footer) footer = el("footer", { className: "site-footer", parent: root });
+
+  return { root, section, leftRail, main, junior, footer };
 }
 
 function renderVideoToMain(video) {
-  const main = $(".main-body");
+  const main = document.querySelector(".main-body");
   if (!main) return;
   main.innerHTML = "";
 
@@ -71,10 +80,9 @@ function renderVideoToMain(video) {
   if (desc) el("p", { className: "video-desc", text: desc, parent: meta });
 }
 
-function showLatestUploads(junior, vids, onSelect) {
-  junior.innerHTML = "";
-
-  const listWrap = el("section", { className: "list-container", parent: junior });
+function showLatestUploads(aside, vids, onSelect) {
+  aside.innerHTML = "";
+  const listWrap = el("section", { className: "list-container", parent: aside });
   el("h2", { className: "list-head", text: "Latest uploads", parent: listWrap });
 
   const ul = el("ul", { className: "list", parent: listWrap });
@@ -83,27 +91,25 @@ function showLatestUploads(junior, vids, onSelect) {
     const li = el("li", { className: "item", parent: ul });
     const btn = el("button", { className: "nav-anchor", text: v.title || "Untitled", parent: li });
     btn.type = "button";
-
     btn.addEventListener("click", () => {
       ul.querySelectorAll(".item").forEach(n => n.classList.remove("item-selected"));
       li.classList.add("item-selected");
-      onSelect?.(v);
+      onSelect?.(v, li);
     });
-
     if (idx === 0) li.classList.add("item-selected");
   });
 }
 
 function render(key) {
-  const main   = $(".main-body");
-  const junior = $(".junior-body");
+  const main   = document.querySelector(".main-body");
+  const junior = document.querySelector(".junior-body");
   if (!main || !junior) return;
 
   switch (key) {
     case "home":
       main.innerHTML = "";
       Home({ videos });
-      buildIntro(junior);
+      makeIntroPanel(junior);
       setTitle("home");
       break;
 
@@ -116,34 +122,23 @@ function render(key) {
       setTitle("videos");
       break;
 
-    case "about":
-      main.innerHTML = `
-        <section class="a-container">
-          <h1>About</h1>
-          <p>Hi! I’m Amy. I like narrative games, gentle sims, weird web art, and snacks.</p>
-          <p>This site is a work-in-progress.</p>
-        </section>
-      `;
-
-      buildIntro(junior);
-      setTitle("about");
+    case "blog":
+      Blog({ posts: blogs });
       break;
 
     case "contact":
       main.innerHTML = "";
-      Contact();               
-      buildIntro(junior);      
-      setTitle("contact");
+      Contact();
+      makeIntroPanel(junior);
       break;
 
     default:
       main.innerHTML = `<h1>Not Found</h1><p>That page isn’t ready yet.</p>`;
-      buildIntro(junior);
       setTitle("not found");
       break;
   }
 
-  $$(".nav-btn").forEach((btn) => {
+  document.querySelectorAll(".nav-btn").forEach((btn) => {
     btn.classList.toggle("selected", btn.dataset.page === key);
   });
 }
@@ -157,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
   [
     ["home", "Home"],
     ["videos", "Videos"],
-    ["about", "About"],
+    ["blog", "Blog"],
     ["contact", "Contact"],
   ].forEach(([key, label]) => {
     const li = el("li", { className: "nav-li", parent: list });
