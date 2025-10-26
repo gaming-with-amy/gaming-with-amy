@@ -43,10 +43,7 @@ function ensureLayout() {
 
   if (!junior.querySelector(".intro-message-container")) makeIntroPanel(junior);
 
-  let footer = $(".site-footer");
-  if (!footer) footer = el("footer", { className: "site-footer", parent: root });
-
-  return { root, section, leftRail, main, junior, footer };
+  return { root, section, leftRail, main, junior };
 }
 
 function renderVideoToMain(video) {
