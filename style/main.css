@@ -21,6 +21,7 @@ body{
     radial-gradient(1600px 900px at 50% 120%, #120a1a 0%, transparent 60%),
     var(--ink);
 }
+h1 { font-size: 2rem;}
 img{max-width:100%;display:block}
 ul,ol{margin:0;padding:0;list-style:none}
 a{color:inherit;text-decoration:none}
