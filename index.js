@@ -167,8 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
     latestUrl:
       (videos &&
         videos[0] &&
-        (videos[0].url || `https://www.youtube.com/watch?v=${videos[0].id}`)) ||
-      "#",
+        (`https://www.youtube.com/watch?v=YnjYx0IdjDE&list=PLMwAfy-5FONewO-g8Rz6sJJl1N0Nrp449`)),
     playlists: [],
   });
 

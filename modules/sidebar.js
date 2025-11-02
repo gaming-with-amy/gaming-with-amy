@@ -61,7 +61,7 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
 
   const finalPlaylists = playlists.length
     ? playlists
-    : [{ label: "My Favorite Cozy Games", href: latestUrl }];
+    : [{ label: "All Videos (in Order)", href: latestUrl }];
 
   finalPlaylists.forEach((p) => {
     const li = document.createElement("li");
