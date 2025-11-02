@@ -26,6 +26,7 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
     { label: "Latest Vid", href: latestUrl, external: true },
     { label: "YouTube", href: "https://www.youtube.com/@GamingWithAmy89", external: true },
     { label: "GitHub", href: "https://github.com/gaming-with-amy", external: true },
+    { label: "BandCamp", href: "https://gamingwithamy.bandcamp.com", external: true }
   ];
 
   items.forEach(({ label, href, external }) => {
