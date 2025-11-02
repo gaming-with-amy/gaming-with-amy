@@ -15,11 +15,7 @@ body{
   margin:0;
   color:var(--paper);
   font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  background:
-    radial-gradient(1200px 800px at 20% -10%, #251436 0%, transparent 60%),
-    radial-gradient(1000px 700px at 90% 10%, #2a1438 0%, transparent 60%),
-    radial-gradient(1600px 900px at 50% 120%, #120a1a 0%, transparent 60%),
-    var(--ink);
+  background:var(--ink);
 }
 h1 { font-size: 2rem;}
 h2 { font-size: 1.75rem;}
