@@ -22,6 +22,7 @@ body{
     var(--ink);
 }
 h1 { font-size: 2rem;}
+h2 { font-size: 1.75rem;}
 img{max-width:100%;display:block}
 ul,ol{margin:0;padding:0;list-style:none}
 a{color:inherit;text-decoration:none}
@@ -51,7 +52,7 @@ a{color:inherit;text-decoration:none}
 .nav-btn:focus-visible,.nav-anchor:focus-visible{outline:2px solid var(--butter);outline-offset:2px}
 
 .section-container{
-  width:min(1200px,92vw);
+  width:min(1500px,92vw);
   margin:24px auto;
   display:grid;
   grid-template-columns:240px minmax(0,1fr) 360px;
@@ -66,6 +67,7 @@ a{color:inherit;text-decoration:none}
   top:calc(var(--header-h) + 16px);
 }
 .left-rail .sidebar-card{background:rgba(255,250,242,.06);border:1px solid rgba(199,183,255,.12);border-radius:14px;padding:12px}
+.left-rail .latest {margin-bottom:15px;}
 .left-rail .latest a,.left-rail .playlists a{color:var(--butter)}
 .left-rail .playlists li{margin-top:6px}
 .left-rail .playlists a:hover{text-decoration:underline}
@@ -133,17 +135,18 @@ a{color:inherit;text-decoration:none}
 .video-page .vid-page-head{margin:0;color:var(--lav)}
 .list-container{margin-top:10px}
 .list-head{color:var(--butter);text-align:center;font-weight:bold;}
-.list{margin:0;padding:0}
-.item{width:100%;padding:10px 0;border-bottom:1px dashed rgba(199,183,255,.15)}
+.list{margin:0;padding:0;display:flex;flex-direction:column;}
+.item{margin-block:15px;border-bottom:1px dashed rgba(199,183,255,.15);align-self:center;}
 .item:last-child{border-bottom:0}
-.nav-anchor{color:var(--butter)}
+.nav-anchor{color:var(--butter);font-size:1.1rem;}
 .nav-anchor:hover{text-decoration:underline}
-.video-desc{margin:.25rem 0 0}
+.video-desc{margin:.5rem 1.25rem;}
 
 .blog-head {font-weight: bold;text-align: center;margin-bottom: 20px;}
 .blog-content h2 {font-weight: bold;color:var(--butter);margin-bottom: 15px;}
 .blog-date {text-decoration: underline;}
-.blog-content p {margin-bottom: 15px}
+.blog-content{overflow:auto;}
+.blog-content p {margin-bottom: 15px;}
 
 .contact h1{margin:0 0 6px;color:var(--lav)}
 .contact-form{display:grid;gap:10px;margin-top:10px}

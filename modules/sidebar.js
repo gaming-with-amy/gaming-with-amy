@@ -23,9 +23,8 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
   ul.className = "sidebar-links";
 
   const items = [
-    { label: "Latest video", href: latestUrl, external: true },
-    { label: "YouTube channel", href: "https://www.youtube.com/@GamingWithAmy89", external: true },
-    { label: "TikTok", href: "https://www.tiktok.com/@gamingwithamy", external: true },
+    { label: "Latest Vid", href: latestUrl, external: true },
+    { label: "YouTube", href: "https://www.youtube.com/@GamingWithAmy89", external: true },
     { label: "GitHub", href: "https://github.com/gaming-with-amy", external: true },
   ];
 
