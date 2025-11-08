@@ -4,7 +4,6 @@ import "./style/main.css";
 import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
 import { Sidebar } from "./modules/sidebar.js";
-import { Videos } from "./modules/videos.js";
 import { Blog } from "./modules/blog.js";
 import { Footer } from "./modules/footer.js";
 import { Contact } from "./modules/contact.js";
