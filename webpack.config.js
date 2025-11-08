@@ -1,20 +1,25 @@
+// webpack.config.js
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const isProd = process.env.NODE_ENV === 'production';
+
 module.exports = {
-  mode: 'development',
+  mode: isProd ? 'production' : 'development',
   entry: './index.js',
   output: {
-    filename: 'main.bundle.js',             
-    path: path.resolve(__dirname, 'public'), 
+    filename: 'main.bundle.js',
+    path: path.resolve(__dirname, 'dist'),   
+    publicPath: '/',                         
     clean: true,
   },
-  devtool: 'source-map',
+  devtool: isProd ? 'source-map' : 'eval-source-map',
   devServer: {
-    static: path.resolve(__dirname, 'public'),
+    static: path.resolve(__dirname, 'dist'),
     port: 5173,
     open: true,
     hot: true,
+    historyApiFallback: true,               
   },
   module: {
     rules: [
@@ -26,6 +31,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './templates/index.html',
       filename: 'index.html',
+      minify: isProd ? 'auto' : false,
     }),
   ],
 };
