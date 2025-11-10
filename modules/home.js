@@ -32,10 +32,6 @@ export function Home({ videos = [], target } = {}) {
   const meta = el("div", { className: "video-meta", parent: main });
   el("h2", { text: title, parent: meta });
   if (desc) el("p", { text: desc, parent: meta });
-
-  const cta = el("div", { className: "home-cta", parent: main });
-  el("button", { text: "More Videos", parent: cta });
-  el("button", { text: "More Music", parent: cta });
 }
 
 
