@@ -65,8 +65,11 @@ a{color:inherit;text-decoration:none}
 .left-rail .sidebar-card{background:rgba(255,250,242,.06);border:1px solid rgba(199,183,255,.12);border-radius:14px;padding:12px}
 .left-rail .latest {margin-bottom:15px;}
 .left-rail .latest a,.left-rail .playlists a{color:var(--butter)}
+.left-rail .player {margin-bottom: 15px;}
 .left-rail .playlists li{margin-top:6px}
 .left-rail .playlists a:hover{text-decoration:underline}
+.left-rail .sidebar-head {margin-bottom: 6px;}
+
 
 .main-body{
   grid-area:main;

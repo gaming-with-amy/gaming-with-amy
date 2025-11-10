@@ -1,4 +1,9 @@
-export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#" } = {}) {
+export function Sidebar({
+  parent = document.body,
+  playlists = [],
+  latestUrl = "#",
+  bandcamp
+} = {}) {
   const host = parent || document.body;
 
   let aside;
@@ -23,10 +28,10 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
   ul.className = "sidebar-links";
 
   const items = [
-    { label: "Latest Vid", href: latestUrl, external: true },
-    { label: "YouTube", href: "https://www.youtube.com/@GamingWithAmy89", external: true },
+    { label: "Latest video", href: latestUrl, external: true },
+    { label: "YouTube channel", href: "https://www.youtube.com/@GamingWithAmy89", external: true },
+    { label: "Bandcamp", href: "https://gamingwithamy.bandcamp.com/", external: true },
     { label: "GitHub", href: "https://github.com/gaming-with-amy", external: true },
-    { label: "BandCamp", href: "https://gamingwithamy.bandcamp.com", external: true }
   ];
 
   items.forEach(({ label, href, external }) => {
@@ -46,6 +51,25 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
   linksCard.appendChild(ul);
   aside.appendChild(linksCard);
 
+  if (bandcamp?.embedSrc || bandcamp?.trackId) {
+    const src = bandcamp.embedSrc
+      || `https://bandcamp.com/EmbeddedPlayer/track=${bandcamp.trackId}/size=small/bgcol=1b1026/linkcol=ffd86b/artwork=none/transparent=true/`;
+    const player = document.createElement("section");
+    player.className = "sidebar-card player";
+    player.innerHTML = `
+      <h2 class="sidebar-head">Now Playing</h2>
+      <div class="bandcamp-embed">
+        <iframe
+          style="border:0; width:100%; height:42px;"
+          src="${src}"
+          seamless
+          title="Bandcamp player">
+        </iframe>
+      </div>
+    `;
+    aside.appendChild(player);
+  }
+
   const listsCard = document.createElement("section");
   listsCard.className = "sidebar-card playlists";
 
@@ -61,7 +85,7 @@ export function Sidebar({ parent = document.body, playlists = [], latestUrl = "#
 
   const finalPlaylists = playlists.length
     ? playlists
-    : [{ label: "All Videos (in Order)", href: latestUrl }];
+    : [{ label: "My Favorite Cozy Games", href: latestUrl }];
 
   finalPlaylists.forEach((p) => {
     const li = document.createElement("li");

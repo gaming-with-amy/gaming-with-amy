@@ -166,8 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
     latestUrl:
       (videos &&
         videos[0] &&
-        (`https://www.youtube.com/watch?v=YnjYx0IdjDE&list=PLMwAfy-5FONewO-g8Rz6sJJl1N0Nrp449`)),
+        (videos[0].url || `https://www.youtube.com/watch?v=${videos[0].id}`)) ||
+      "#",
     playlists: [],
+    bandcamp: {
+      embedSrc: "https://bandcamp.com/EmbeddedPlayer/track=2581992937/size=small/bgcol=1b1026/linkcol=ffd86b/artwork=none/transparent=true/"
+    }
   });
 
   Footer(root);
