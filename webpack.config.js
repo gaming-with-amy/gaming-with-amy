@@ -21,10 +21,16 @@ module.exports = {
     hot: true,
     historyApiFallback: true,               
   },
+  
   module: {
     rules: [
       { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
       { test: /\.json5$/i, loader: 'json5-loader', type: 'javascript/auto' },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource',
+        generator: { filename: 'img/[name][ext]' } 
+      },
     ],
   },
   plugins: [

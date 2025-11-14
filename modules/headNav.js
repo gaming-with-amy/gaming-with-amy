@@ -1,25 +1,23 @@
-export function headNav(onHome) {
-  const header = document.createElement("header");
-  header.className = "head-nav";
+import { el } from "./utils.js";
 
-  const brand = document.createElement("a");
-  brand.className = "home-link";
-  brand.href = "#";
-  brand.textContent = "Gaming with Amy";
+export function headNav(onHome) {
+  const header = el("header", { className: "head-nav" });
+
+  const brand = el("a", {
+    className: "home-link brand",
+    attrs: { href: "#", "data-page": "home", "aria-label": "Home" },
+    parent: header
+  });
+  el("span", { className: "brand-avatar", parent: brand });
+  el("span", { className: "brand-title", text: "Gaming with Amy", parent: brand });
+
   brand.addEventListener("click", (e) => {
     e.preventDefault();
-    if (onHome) onHome();
+    onHome?.();
   });
 
-  const nav = document.createElement("nav");
-  nav.className = "link-nav";
+  const linkNav = el("nav", { className: "link-nav", parent: header });
+  const list = el("ul", { className: "nav-list", parent: linkNav });
 
-  const list = document.createElement("ul");
-  list.className = "nav-list";
-
-  nav.appendChild(list);
-  header.appendChild(brand);
-  header.appendChild(nav);
-
-  return { header, list, brand };
+  return { header, list };
 }
