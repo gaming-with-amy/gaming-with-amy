@@ -13,7 +13,7 @@ export function Contact() {
   el("h1", { className: "form-head", text: "Contact", parent: wrap });
   el("p", {
     className: "form-copy-p",
-    text: "Business inquiries or suggestions? Drop a note below.",
+    text: "If you have any suggestions or questions, feel free to get in touch with me using the contact form below.",
     parent: wrap,
   });
 

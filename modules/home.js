@@ -10,8 +10,8 @@ export function Home({ videos = [], target } = {}) {
   const title = first?.title || "Latest video coming soon";
   const desc  = first?.description || "";
 
-  el("h1", { text: "Gaming with Amy (Homepage)", parent: main });
-  el("p", { text: "Cozy games, comfy vibes, occasional detours into music and books.", parent: main });
+  el("h1", { text: "Gaming with Amy", parent: main });
+  el("p", { text: "Cozy games, comfy vibes, & occasional detours into music/books.", parent: main });
 
   const wrap = el("div", { className: "video-container", parent: main });
   el("iframe", {

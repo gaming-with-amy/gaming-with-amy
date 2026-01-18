@@ -1,6 +1,6 @@
 export function Sidebar({
   parent = document.body,
-  playlists = [],
+  playlists,
   latestUrl = "#",
   bandcamp
 } = {}) {
@@ -41,7 +41,7 @@ export function Sidebar({
     a.href = href || "#";
     if (external) {
       a.target = "_blank";
-      a.rel = "noopener";
+      a.rel = "noopener noreferrer";
     }
     li.appendChild(a);
     ul.appendChild(li);
@@ -54,6 +54,7 @@ export function Sidebar({
   if (bandcamp?.embedSrc || bandcamp?.trackId) {
     const src = bandcamp.embedSrc
       || `https://bandcamp.com/EmbeddedPlayer/track=${bandcamp.trackId}/size=small/bgcol=1b1026/linkcol=ffd86b/artwork=none/transparent=true/`;
+
     const player = document.createElement("section");
     player.className = "sidebar-card player";
     player.innerHTML = `
@@ -83,9 +84,19 @@ export function Sidebar({
   list.className = "playlist-list";
   list.hidden = true;
 
-  const finalPlaylists = playlists.length
-    ? playlists
-    : [{ label: "All My Videos", href: latestUrl }];
+  // Important: if callers pass playlists: [] (common), we still want a real list,
+  // so we use a fallback when playlists is empty or not an array.
+  const defaultPlaylists = [
+    { label: "All Videos", href: "https://www.youtube.com/playlist?list=PLMwAfy-5FONewO-g8Rz6sJJl1N0Nrp449" },
+    { label: "Powerwash Sim Vids", href: "https://www.youtube.com/playlist?list=PLMwAfy-5FONeCgoFiN-T1KB5nDV9jDS10" },
+    { label: "Coffee Talk Vids", href: "https://www.youtube.com/playlist?list=PLMwAfy-5FONduz0bb_yKr49nw7ZyDMwl1" },
+    { label: "Unpacking Vids", href: "https://www.youtube.com/playlist?list=PLMwAfy-5FONdugpDtvQml-RX3JVvD3-NJ" }
+  ];
+
+  const finalPlaylists =
+    Array.isArray(playlists) && playlists.length
+      ? playlists
+      : defaultPlaylists;
 
   finalPlaylists.forEach((p) => {
     const li = document.createElement("li");
@@ -93,7 +104,7 @@ export function Sidebar({
     a.textContent = p.label || "Playlist";
     a.href = p.href || "#";
     a.target = "_blank";
-    a.rel = "noopener";
+    a.rel = "noopener noreferrer";
     li.appendChild(a);
     list.appendChild(li);
   });
