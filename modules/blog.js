@@ -47,6 +47,7 @@ export function Blog({ posts = [] } = {}) {
         ul.querySelectorAll(".item").forEach(n => n.classList.remove("item-selected"));
         li.classList.add("item-selected");
         renderPost(p);
+        window.scrollTo(0, 0);
         setTitle("blog");
       });
 
