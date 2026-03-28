@@ -1,6 +1,6 @@
 [build]
   publish = "dist"
-  command = "npm run build"
+  command = "npm run build && cp -r assets/endnotes dist/img/endnotes"
 
 [[redirects]]
   from = "/*"
