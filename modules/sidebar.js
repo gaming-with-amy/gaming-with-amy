@@ -1,3 +1,5 @@
+import sidebarData from "../data/sidebar.json5";
+
 export function Sidebar({
   parent = document.body,
   playlists,
@@ -29,9 +31,7 @@ export function Sidebar({
 
   const items = [
     { label: "Latest video", href: latestUrl, external: true },
-    { label: "YouTube channel", href: "https://www.youtube.com/@GamingWithAmy89", external: true },
-    { label: "Bandcamp", href: "https://gamingwithamy.bandcamp.com/", external: true },
-    { label: "GitHub", href: "https://github.com/gaming-with-amy", external: true },
+    ...sidebarData.links
   ];
 
   items.forEach(({ label, href, external }) => {
@@ -84,19 +84,10 @@ export function Sidebar({
   list.className = "playlist-list";
   list.hidden = true;
 
-  // Important: if callers pass playlists: [] (common), we still want a real list,
-  // so we use a fallback when playlists is empty or not an array.
-  const defaultPlaylists = [
-    { label: "All Videos", href: "https://www.youtube.com/playlist?list=PLMwAfy-5FONewO-g8Rz6sJJl1N0Nrp449" },
-    { label: "Powerwash Sim Vids", href: "https://www.youtube.com/playlist?list=PLMwAfy-5FONeCgoFiN-T1KB5nDV9jDS10" },
-    { label: "Coffee Talk Vids", href: "https://www.youtube.com/playlist?list=PLMwAfy-5FONduz0bb_yKr49nw7ZyDMwl1" },
-    { label: "Unpacking Vids", href: "https://www.youtube.com/playlist?list=PLMwAfy-5FONdugpDtvQml-RX3JVvD3-NJ" }
-  ];
-
   const finalPlaylists =
     Array.isArray(playlists) && playlists.length
       ? playlists
-      : defaultPlaylists;
+      : sidebarData.playlists;
 
   finalPlaylists.forEach((p) => {
     const li = document.createElement("li");
