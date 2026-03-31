@@ -11,15 +11,15 @@ import { el, $, $$, setTitle } from "./modules/utils.js";
 
 import videos from "./data/videos.json5";
 import blogs from "./data/blogs.json5";
+import channel from "./data/channel.json5";
 
 function makeIntroPanel(host) {
   host.innerHTML = "";
   const introWrap = el("section", { className: "intro-message-container", parent: host });
-  el("h2", { className: "intro-message-head", text: "Welcome to Gaming with Amy!", parent: introWrap });
+  el("h2", { className: "intro-message-head", text: channel.welcomeHeading, parent: introWrap });
   const introPanel = el("article", { className: "intro-message", parent: introWrap });
   el("p", {
-    text:
-      "Dive into the wonderful world of cozy games, books, and everything soft and squishy. From the newest indie game reviews to my latest squishmallow haul, join me on my cozy adventures!",
+    text: channel.welcomeMessage,
     parent: introPanel,
   });
 }
@@ -104,7 +104,7 @@ function render(key) {
   switch (key) {
     case "home":
       main.innerHTML = "";
-      Home({ videos });
+      Home({ videos, channel });
       makeIntroPanel(junior);
       setTitle("home");
       break;

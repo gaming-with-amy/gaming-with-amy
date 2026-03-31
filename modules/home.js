@@ -1,6 +1,6 @@
 import { el, $ } from "./utils.js";
 
-export function Home({ videos = [], target } = {}) {
+export function Home({ videos = [], channel = {}, target } = {}) {
   const main = target || $(".main-body") || $("main");
 
   main.innerHTML = ""; 
@@ -10,8 +10,8 @@ export function Home({ videos = [], target } = {}) {
   const title = first?.title || "Latest video coming soon";
   const desc  = first?.description || "";
 
-  el("h1", { text: "Gaming with Amy", parent: main });
-  el("p", { text: "Cozy games, comfy vibes, & occasional detours into music/books.", parent: main, className: "channel-description" });
+  el("h1", { text: channel.name || "Gaming with Amy", parent: main });
+  el("p", { text: channel.description || "", parent: main, className: "channel-description" });
 
   const wrap = el("div", { className: "video-container", parent: main });
   el("iframe", {
