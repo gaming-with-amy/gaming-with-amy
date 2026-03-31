@@ -278,6 +278,8 @@ a{color:inherit;text-decoration:none}
 .blog-date {text-decoration: underline;}
 .blog-content{overflow:auto;}
 .blog-content p {margin-bottom: 15px;}
+.blog-link {text-decoration: underline;color:var(--butter);}
+.image-credit {margin-bottom: 15px;}
 
 .contact h1{margin:0 0 6px;color:var(--lav)}
 .contact-form{display:flex;flex-direction:column;margin-top:10px}
