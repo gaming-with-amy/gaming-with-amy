@@ -6,6 +6,18 @@
   <link rel="icon"
       href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="50%" x="50%" dominant-baseline="middle" text-anchor="middle" font-size="52">🦉</text></svg>'>
   <title>Gaming with Amy</title>
+  <script>
+    (function () {
+      var q = new URLSearchParams(window.location.search);
+      var spa = q.get('_spa');
+      if (spa) {
+        q.delete('_spa');
+        var remaining = q.toString();
+        var restored = spa + (remaining ? '?' + remaining : '');
+        window.history.replaceState(null, '', restored);
+      }
+    })();
+  </script>
 </head>
 
 <body>

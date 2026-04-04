@@ -1,18 +1,26 @@
 import { el, $, setTitle } from "./utils.js";
 
-export function Videos({ videos = [], mainTarget, listTarget } = {}) {
-  const main = mainTarget || ($(".main-body") || $("main"));
-  const rail = listTarget || $(".junior-body");
+export function Videos({ videos = [], slug = null, onNavigate } = {}) {
+  const main = $(".main-body") || $("main");
+  const rail = $(".junior-body");
   if (!main) return;
 
   main.innerHTML = "";
+  if (rail) rail.innerHTML = "";
+
+  let activeVideo;
+  if (slug) {
+    activeVideo = videos.find(v => v.slug === slug);
+    if (!activeVideo) activeVideo = videos[0];
+  } else {
+    activeVideo = videos[0];
+  }
+
   const page = el("section", { className: "video-page", parent: main });
   el("h1", { className: "vid-page-head", text: "Videos", parent: page });
 
-  const layout = el("div", { className: "videos-layout", parent: page });
-
-  const playerWrap = el("div", { className: "video-container", parent: layout });
-  const meta = el("div", { className: "video-meta", parent: layout });
+  const playerWrap = el("div", { className: "video-container", parent: page });
+  const meta = el("div", { className: "video-meta", parent: page });
 
   function renderPlayer(v) {
     playerWrap.innerHTML = "";
@@ -34,35 +42,35 @@ export function Videos({ videos = [], mainTarget, listTarget } = {}) {
     meta.innerHTML = "";
     el("h2", { text: v.title || "Untitled", parent: meta });
     if (v.description) el("p", { className: "video-desc", text: v.description, parent: meta });
+
+    setTitle(v.title || "Videos");
   }
 
-  if (videos[0]) renderPlayer(videos[0]);
+  if (activeVideo) renderPlayer(activeVideo);
 
   if (rail) {
-    const intro = rail.querySelector(".intro-message-container");
-    if (intro) intro.remove();
+    const listWrap = el("section", { className: "list-container", parent: rail });
+    el("h2", { className: "list-head", text: "Latest uploads", parent: listWrap });
+    const ul = el("ul", { className: "list", parent: listWrap });
 
-    let listCard = rail.querySelector(".uploads-card");
-    if (!listCard) {
-      listCard = el("section", { className: "uploads-card sidebar-card", parent: rail });
-    } else {
-      listCard.innerHTML = "";
-    }
-
-    el("h2", { className: "list-head", text: "Latest uploads", parent: listCard });
-    const ul = el("ul", { className: "list", parent: listCard });
-
-    videos.forEach((v, idx) => {
+    videos.forEach((v) => {
       const li = el("li", { className: "item", parent: ul });
       const btn = el("button", { className: "nav-anchor", text: v.title || "Untitled", parent: li });
+      btn.type = "button";
+
+      if (v.slug === activeVideo?.slug) li.classList.add("item-selected");
+
       btn.addEventListener("click", () => {
-        renderPlayer(v);
-        ul.querySelectorAll(".item").forEach((n) => n.classList.remove("item-selected"));
-        li.classList.add("item-selected");
+        const path = "/videos/" + (v.slug || "");
+        if (onNavigate) {
+          onNavigate(path);
+        } else {
+          ul.querySelectorAll(".item").forEach(n => n.classList.remove("item-selected"));
+          li.classList.add("item-selected");
+          renderPlayer(v);
+          window.scrollTo(0, 0);
+        }
       });
-      if (idx === 0) li.classList.add("item-selected");
     });
   }
-
-  setTitle("videos");
 }

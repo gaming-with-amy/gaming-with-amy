@@ -39,5 +39,11 @@ module.exports = {
       filename: 'index.html',
       minify: isProd ? 'auto' : false,
     }),
+    new HtmlWebpackPlugin({
+      template: './templates/404.html',
+      filename: '404.html',
+      inject: false,
+      minify: isProd ? 'auto' : false,
+    }),
   ],
 };

@@ -1,116 +1,135 @@
 [
   {
     id: "DOsMFsPItP4",
+    slug: "michael-ii-iceberg",
     title: "This Wiki Shouldn't Exist: The Michael II Iceberg",
     url: "https://www.youtube.com/watch?v=DOsMFsPItP4",
     description: ""
   },
   {
     id: "oQoxEBFFHgk",
+    slug: "best-args-internet-mysteries",
     title: "The Best ARGs and Disturbing Internet Mysteries",
     url: "https://www.youtube.com/watch?v=oQoxEBFFHgk",
-    description: "In this video, I dive into some of the most intriguing ARGs (Alternate Reality Games) and other weird online art projects that have captured the internet’s imagination. These narratives push the boundaries of storytelling, blending horror, interactivity, and cryptic worldbuilding to create something truly unique. Some are disturbing, others are oddly funny, but all of them leave a lasting impression. If you appreciate media that challenges perception and thrives on ambiguity, this one's for you."
+    description: "In this video, I dive into some of the most intriguing ARGs (Alternate Reality Games) and other weird online art projects that have captured the internet's imagination. These narratives push the boundaries of storytelling, blending horror, interactivity, and cryptic worldbuilding to create something truly unique. Some are disturbing, others are oddly funny, but all of them leave a lasting impression. If you appreciate media that challenges perception and thrives on ambiguity, this one's for you."
   },
   {
     id: "z-qGiGGUrrY",
+    slug: "retro-gaming-nostalgia",
     title: "Retro Gaming and the Millennial Obsession with Nostalgia",
     url: "https://www.youtube.com/watch?v=z-qGiGGUrrY",
-    description: "Hi everyone! Join me as I attend my first retro gaming convention and reflect on the magic of gaming nostalgia! From childhood memories of Sega Genesis and Kingdom Hearts to comparing retro and modern gaming, this video is a nostalgic dive into how gaming has shaped me over the years. Share your favorite retro gaming moments in the comments! 🦉",
+    description: "Hi everyone! Join me as I attend my first retro gaming convention and reflect on the magic of gaming nostalgia! From childhood memories of Sega Genesis and Kingdom Hearts to comparing retro and modern gaming, this video is a nostalgic dive into how gaming has shaped me over the years. Share your favorite retro gaming moments in the comments! 🦉"
   },
   {
     id: "S-538OYBv-4",
+    slug: "cozy-gaming-qa",
     title: "Cozy Gaming Q&A: Your Questions Answered 🦉",
     url: "https://www.youtube.com/watch?v=S-538OYBv-4",
-    description: "Hey, folks! In this Q&A, I’m sharing how I got into cozy gaming, my favorite gaming soundtracks, and what I think is the coziest game ever."
+    description: "Hey, folks! In this Q&A, I'm sharing how I got into cozy gaming, my favorite gaming soundtracks, and what I think is the coziest game ever."
   },
   {
     id: "YkGETm-0nu0",
+    slug: "cozy-home-items",
     title: "Cozy Home Items I Can't Live Without",
     url: "https://www.youtube.com/watch?v=YkGETm-0nu0",
-    description: "In today’s video, I’m stepping a little outside my usual cozy gaming niche to share my favorite cozy home essentials. From fuzzy blankets and plushies to quirky trinkets like a ghost in a jar and a burger pen (yes, really), I’m covering all the things that make my home feel like a nice warm hug."
+    description: "In today's video, I'm stepping a little outside my usual cozy gaming niche to share my favorite cozy home essentials. From fuzzy blankets and plushies to quirky trinkets like a ghost in a jar and a burger pen (yes, really), I'm covering all the things that make my home feel like a nice warm hug."
   },
   {
     id: "90twGGDJFlw",
+    slug: "jenny-leclue-review",
     title: "Jenny LeClue: Detectivu Review - A Cozy Mystery with Surprising Depth",
     url: "https://www.youtube.com/watch?v=90twGGDJFlw",
-    description: "Hey there! You know, Jenny LeClue: Detectivu might be a few years old at this point, but I personally think it’s an indie gem worth revisiting. In this video, I dive into everything that makes this game special from its engaging story and witty dialogue to its hand-drawn art and absolutely fantastic voice acting. Whether you’re curious about the gameplay, the narrative depth, or the nostalgic-yet-modern aesthetic, I’ve got you covered."
+    description: "Hey there! You know, Jenny LeClue: Detectivu might be a few years old at this point, but I personally think it's an indie gem worth revisiting. In this video, I dive into everything that makes this game special from its engaging story and witty dialogue to its hand-drawn art and absolutely fantastic voice acting. Whether you're curious about the gameplay, the narrative depth, or the nostalgic-yet-modern aesthetic, I've got you covered."
   },
   {
     id: "SYUzgQ0a2kg",
+    slug: "90s-vhs-nostalgia",
     title: "90s VHS Nostalgia: The Movies That Shaped My Childhood",
     url: "https://www.youtube.com/watch?v=SYUzgQ0a2kg",
     description: "Hi everyone! I've been feeling a bit nostalgic lately. Let's journey back to the golden age of VHS tapes and childhood movies! From Home Alone to The Lion King, I'm revisiting the movies that defined growing up in the 90s. As a fellow 90s Kid™, I'm sharing my personal collection of VHS memories, including some rare gems and forgotten classics."
   },
   {
     id: "NwWx0jB_LYc",
+    slug: "cozy-exploration-games",
     title: "Top 8 Cozy Exploration Games",
     url: "https://www.youtube.com/watch?v=NwWx0jB_LYc",
-    description: "Hey everyone! Today, I'm sharing some of my absolute favorite cozy open world and exploration games, the kind of games that let you escape into beautiful worlds and unwind. Whether it’s the scenic charm of Eastshade or the nostalgic weirdness of Broken Reality, these games are pure, immersive joy. Let’s dive in, and I promise you’ll find something new to add to your wishlist."
+    description: "Hey everyone! Today, I'm sharing some of my absolute favorite cozy open world and exploration games, the kind of games that let you escape into beautiful worlds and unwind. Whether it's the scenic charm of Eastshade or the nostalgic weirdness of Broken Reality, these games are pure, immersive joy. Let's dive in, and I promise you'll find something new to add to your wishlist."
   },
   {
     id: "KxhdaPf2vcI",
+    slug: "free-cozy-games",
     title: "Trying Out Free Cozy Games (Honest Reviews)",
     url: "https://www.youtube.com/watch?v=KxhdaPf2vcI",
-    description: "Today, we're diving into the world of free cozy games. As someone who’s on a limited budget, I know gaming can get a bit pricey, and nothing stings quite like splurging on a game that ultimately falls flat. That’s why I’ve picked out seven unique, no-cost cozy games from Steam and itch.io to keep your gaming habit affordable and guilt-free."
+    description: "Today, we're diving into the world of free cozy games. As someone who's on a limited budget, I know gaming can get a bit pricey, and nothing stings quite like splurging on a game that ultimately falls flat. That's why I've picked out seven unique, no-cost cozy games from Steam and itch.io to keep your gaming habit affordable and guilt-free."
   },
   {
     id: "l1Ru9Vm2c1o",
+    slug: "most-played-games",
     title: "Games I've Played the Most 😅",
     url: "https://www.youtube.com/watch?v=l1Ru9Vm2c1o",
-    description: "Hey everyone! In today’s video, I’m taking a closer look at just how much time I’ve spent playing some of my favorite games. Spoiler alert: it’s a lot of hours. Plus, I talk about the newest addition to the House Flipper series and why it’s keeping me busy!"
+    description: "Hey everyone! In today's video, I'm taking a closer look at just how much time I've spent playing some of my favorite games. Spoiler alert: it's a lot of hours. Plus, I talk about the newest addition to the House Flipper series and why it's keeping me busy!"
   },
   {
     id: "5urAKzdkZhs",
+    slug: "heartwarming-narrative-games",
     title: "Heartwarming Narrative Games for Cozy Gamers",
     url: "https://www.youtube.com/watch?v=5urAKzdkZhs",
     description: "Greetings, fellow cozy gamers! Today, I'm sharing some of my very favorite narrative-driven cozy games. Whether you're into visual novels or atmospheric exploration, there's definitely something here that'll speak to your inner storyteller. Let's dive into Florence, Coffee Talk, Lake, and more!"
   },
   {
     id: "1JCNfv_0cH8",
+    slug: "cozy-indie-games",
     title: "Six Cozy Indie Games You Need to Play",
     url: "https://www.youtube.com/watch?v=1JCNfv_0cH8",
-    description: "Hello, fellow cozy gamers! In today's video, I'm sharing six cozy indie games that you might not have heard of yet. From creature collecting to managing a capybara spa, these hidden gems are perfect for winding down after a long day. Shout out to the amazing r/CozyGamers community for all the inspiration. Which game are you most excited to try? Let me know!",
+    description: "Hello, fellow cozy gamers! In today's video, I'm sharing six cozy indie games that you might not have heard of yet. From creature collecting to managing a capybara spa, these hidden gems are perfect for winding down after a long day. Shout out to the amazing r/CozyGamers community for all the inspiration. Which game are you most excited to try? Let me know!"
   },
   {
     id: "AeZoPMLEyqg",
+    slug: "cozy-game-hot-takes",
     title: "Cozy Game Hot Takes 🔥",
     url: "https://www.youtube.com/watch?v=AeZoPMLEyqg",
-    description: "Hey everyone. In today’s video, I’m sharing some spicy opinions about cozy gaming that I’ve been holding onto for a while. From pixelated graphics to farming sims and even cozy horror games, I guess I’ve got a lot to say. 😅"
+    description: "Hey everyone. In today's video, I'm sharing some spicy opinions about cozy gaming that I've been holding onto for a while. From pixelated graphics to farming sims and even cozy horror games, I guess I've got a lot to say. 😅"
   },
   {
     id: "2x0NdnwruFo",
+    slug: "albums-ill-never-get-sick-of",
     title: "Albums I'll Never Get Sick Of 🎸🎸🎸",
     url: "https://www.youtube.com/watch?v=2x0NdnwruFo",
-    description: "Hey friends, welcome back to Gaming with Amy! Today’s video is a little different—I'm diving into one of my other passions: music. Specifically, I’m talking about albums I’ll never, ever get sick of. If I do, well…something’s definitely wrong.",
+    description: "Hey friends, welcome back to Gaming with Amy! Today's video is a little different—I'm diving into one of my other passions: music. Specifically, I'm talking about albums I'll never, ever get sick of. If I do, well…something's definitely wrong."
   },
   {
     id: "UD00iIsSAVg",
+    slug: "dark-spooky-cozy-games",
     title: "Dark and Spooky Cozy Game Recommendations",
     url: "https://www.youtube.com/watch?v=UD00iIsSAVg",
-    description: "Hi friends, and Happy Halloween! I'd like to share with you my top dark and spooky cozy games. From narrative-driven adventures to mysterious visual novels, there's something here for every type of gamer. Let’s explore these delightfully spooky games together."
+    description: "Hi friends, and Happy Halloween! I'd like to share with you my top dark and spooky cozy games. From narrative-driven adventures to mysterious visual novels, there's something here for every type of gamer. Let's explore these delightfully spooky games together."
   },
   {
     id: "8yZbJsEVN2g",
+    slug: "recent-reads",
     title: "What I've Read Recently (and Recommend!)",
     url: "https://www.youtube.com/watch?v=8yZbJsEVN2g",
-    description: "Today’s video is a little different from my usual cozy gaming content because I’m diving into one of my other passions: reading. From creepy horror to fascinating memoirs, I’m sharing some standout books I’ve been into lately. I’ve always loved finding books with that special vibe, and these ones hit the mark."
+    description: "Today's video is a little different from my usual cozy gaming content because I'm diving into one of my other passions: reading. From creepy horror to fascinating memoirs, I'm sharing some standout books I've been into lately. I've always loved finding books with that special vibe, and these ones hit the mark."
   },
   {
     id: "zOgM5JHfNF4",
+    slug: "cozy-puzzle-games",
     title: "Chill Cozy Puzzle Games! 🦉",
     url: "https://www.youtube.com/watch?v=zOgM5JHfNF4",
-    description: "Hey everyone! Today, I’m diving into some of my favorite cozy puzzle games that are perfect for relaxing and unwinding. Whether you’re in the mood for a calming experience or a cute hidden object game, I’ve got you covered."
+    description: "Hey everyone! Today, I'm diving into some of my favorite cozy puzzle games that are perfect for relaxing and unwinding. Whether you're in the mood for a calming experience or a cute hidden object game, I've got you covered."
   },
   {
     id: "T66ZlkMGK9E",
+    slug: "wytchwood-review",
     title: "Wytchwood Review: A Cozy Crafting Fairytale?",
     url: "https://www.youtube.com/watch?v=T66ZlkMGK9E",
-    description: "Wytchwood is a crafting adventure game set in a world of gothic fables and fairytales. In this review, I’ll break down the game’s art style, soundtrack, and gameplay. But does the story deliver? Let’s find out if Wytchwood is worth your time and money."
+    description: "Wytchwood is a crafting adventure game set in a world of gothic fables and fairytales. In this review, I'll break down the game's art style, soundtrack, and gameplay. But does the story deliver? Let's find out if Wytchwood is worth your time and money."
   },
   {
     id: "YnjYx0IdjDE",
+    slug: "my-favorite-cozy-games",
     title: "My Favorite Cozy Games",
     url: "https://www.youtube.com/watch?v=YnjYx0IdjDE",
-    description: "I’m Amy, and this is my very first video. I'll be sharing some of the cozy games that have captured my heart over the past year or so."
+    description: "I'm Amy, and this is my very first video. I'll be sharing some of the cozy games that have captured my heart over the past year or so."
   }
 ]

@@ -5,6 +5,7 @@ import { Home } from "./modules/home.js";
 import { headNav } from "./modules/headNav.js";
 import { Sidebar } from "./modules/sidebar.js";
 import { Blog } from "./modules/blog.js";
+import { Videos } from "./modules/videos.js";
 import { Footer } from "./modules/footer.js";
 import { Contact } from "./modules/contact.js";
 import { el, $, $$, setTitle } from "./modules/utils.js";
@@ -13,15 +14,39 @@ import videos from "./data/videos.json5";
 import blogs from "./data/blogs.json5";
 import channel from "./data/channel.json5";
 
+function parseRoute(pathname) {
+  const parts = pathname.replace(/\/+$/, "").split("/").filter(Boolean);
+  if (parts.length === 0) return { page: "home" };
+
+  const base = parts[0].toLowerCase();
+  switch (base) {
+    case "home":    return { page: "home" };
+    case "videos":
+    case "vids":    return { page: "videos", slug: parts[1] || null };
+    case "blog":
+    case "blogs":   return { page: "blog", slug: parts[1] || null };
+    case "contact": return { page: "contact" };
+    default:        return { page: "404" };
+  }
+}
+
+function navigate(path, replace = false) {
+  if (path !== window.location.pathname) {
+    if (replace) {
+      history.replaceState(null, "", path);
+    } else {
+      history.pushState(null, "", path);
+    }
+  }
+  renderFromURL();
+}
+
 function makeIntroPanel(host) {
   host.innerHTML = "";
   const introWrap = el("section", { className: "intro-message-container", parent: host });
   el("h2", { className: "intro-message-head", text: channel.welcomeHeading, parent: introWrap });
   const introPanel = el("article", { className: "intro-message", parent: introWrap });
-  el("p", {
-    text: channel.welcomeMessage,
-    parent: introPanel,
-  });
+  el("p", { text: channel.welcomeMessage, parent: introPanel });
 }
 
 function ensureLayout() {
@@ -45,63 +70,12 @@ function ensureLayout() {
   return { root, section, leftRail, main, junior };
 }
 
-function renderVideoToMain(video) {
-  const main = document.querySelector(".main-body");
-  if (!main) return;
-  main.innerHTML = "";
-
-  const title = video?.title || "Videos";
-  const desc  = video?.description || "";
-  const ytId  = video?.id || "VIDEO_ID";
-
-  el("h1", { className: "vid-page-head", text: "Videos", parent: main });
-
-  const wrap = el("div", { className: "video-container", parent: main });
-  const frameWrap = el("div", { className: "vid-div", parent: wrap });
-  el("iframe", {
-    attrs: {
-      class: "video",
-      src: `https://www.youtube.com/embed/${ytId}`,
-      title,
-      frameborder: "0",
-      allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-      referrerpolicy: "strict-origin-when-cross-origin",
-      allowfullscreen: ""
-    },
-    parent: frameWrap
-  });
-
-  const meta = el("div", { className: "video-meta", parent: main });
-  el("h2", { text: title, parent: meta });
-  if (desc) el("p", { className: "video-desc", text: desc, parent: meta });
-}
-
-function showLatestUploads(aside, vids, onSelect) {
-  aside.innerHTML = "";
-  const listWrap = el("section", { className: "list-container", parent: aside });
-  el("h2", { className: "list-head", text: "Latest uploads", parent: listWrap });
-
-  const ul = el("ul", { className: "list", parent: listWrap });
-
-  (vids || []).forEach((v, idx) => {
-    const li = el("li", { className: "item", parent: ul });
-    const btn = el("button", { className: "nav-anchor", text: v.title || "Untitled", parent: li });
-    btn.type = "button";
-    btn.addEventListener("click", () => {
-      ul.querySelectorAll(".item").forEach(n => n.classList.remove("item-selected"));
-      li.classList.add("item-selected");
-      onSelect?.(v, li);
-    });
-    if (idx === 0) li.classList.add("item-selected");
-  });
-}
-
-function render(key) {
+function render(page, opts = {}) {
   const main   = document.querySelector(".main-body");
   const junior = document.querySelector(".junior-body");
   if (!main || !junior) return;
 
-  switch (key) {
+  switch (page) {
     case "home":
       main.innerHTML = "";
       Home({ videos, channel });
@@ -110,16 +84,11 @@ function render(key) {
       break;
 
     case "videos":
-      renderVideoToMain(videos?.[0]);
-      showLatestUploads(junior, videos, (v) => {
-        renderVideoToMain(v);
-        setTitle("videos");
-      });
-      setTitle("videos");
+      Videos({ videos, slug: opts.slug, onNavigate: navigate });
       break;
 
     case "blog":
-      Blog({ posts: blogs });
+      Blog({ posts: blogs, slug: opts.slug, onNavigate: navigate });
       break;
 
     case "contact":
@@ -129,28 +98,34 @@ function render(key) {
       break;
 
     default:
-      main.innerHTML = `<h1>Not Found</h1><p>That page isn’t ready yet.</p>`;
+      main.innerHTML = `<h1>Not Found</h1><p>That page isn't ready yet.</p>`;
       setTitle("not found");
       break;
   }
 
   document.querySelectorAll(".nav-btn").forEach((btn) => {
-    btn.classList.toggle("selected", btn.dataset.page === key);
+    btn.classList.toggle("selected", btn.dataset.page === page);
   });
+}
+
+function renderFromURL() {
+  const route = parseRoute(window.location.pathname);
+  render(route.page, { slug: route.slug });
+  window.scrollTo(0, 0);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const { root, leftRail } = ensureLayout();
 
-  const { header, list } = headNav(() => render("home"));
+  const { header, list } = headNav(() => navigate("/"));
   if (!root.querySelector(".head-nav")) root.prepend(header);
 
   [
-    ["home", "Home"],
-    ["videos", "Videos"],
-    ["blog", "Blog"],
-    ["contact", "Contact"],
-  ].forEach(([key, label]) => {
+    ["home",    "Home",    "/"],
+    ["videos",  "Videos",  "/videos"],
+    ["blog",    "Blog",    "/blog"],
+    ["contact", "Contact", "/contact"],
+  ].forEach(([key, label, path]) => {
     const li = el("li", { className: "nav-li", parent: list });
     const btn = el("button", {
       className: "nav-btn nav-anchor",
@@ -158,16 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
       attrs: { "data-page": key, type: "button" },
       parent: li,
     });
-    btn.addEventListener("click", () => render(key));
+    btn.addEventListener("click", () => navigate(path));
   });
 
   Sidebar({
     parent: leftRail,
     latestUrl:
-      (videos &&
-        videos[0] &&
-        (videos[0].url || `https://www.youtube.com/watch?v=${videos[0].id}`)) ||
-      "#",
+      (videos && videos[0] &&
+        (videos[0].url || `https://www.youtube.com/watch?v=${videos[0].id}`)) || "#",
     playlists: [],
     bandcamp: {
       embedSrc: "https://bandcamp.com/EmbeddedPlayer/track=999830409/size=small/bgcol=1b1026/linkcol=ffd86b/artwork=none/transparent=true/"
@@ -175,5 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   Footer(root);
-  render("home");
+
+  window.addEventListener("popstate", renderFromURL);
+
+  renderFromURL();
 });

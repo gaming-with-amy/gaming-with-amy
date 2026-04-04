@@ -1,12 +1,22 @@
 import { el, $, setTitle } from "./utils.js";
 
-export function Blog({ posts = [] } = {}) {
+export function Blog({ posts = [], slug = null, onNavigate } = {}) {
   const main = $(".main-body") || $("main");
   const aside = $(".junior-body");
   if (!main || !aside) return;
 
   main.innerHTML = "";
   aside.innerHTML = "";
+
+  let activePost;
+  if (slug) {
+    activePost = posts.find(p => p.id === slug);
+    if (!activePost) {
+      activePost = posts[0];
+    }
+  } else {
+    activePost = posts[0];
+  }
 
   const page = el("section", { className: "blog-page", parent: main });
   el("h1", { className: "blog-head", text: "Blog", parent: page });
@@ -26,6 +36,8 @@ export function Blog({ posts = [] } = {}) {
       const body = el("div", { parent: contentWrap });
       body.innerHTML = html;
     }
+
+    setTitle(title);
   }
 
   function buildList() {
@@ -34,7 +46,7 @@ export function Blog({ posts = [] } = {}) {
 
     const ul = el("ul", { className: "list", parent: listWrap });
 
-    (posts || []).forEach((p, i) => {
+    (posts || []).forEach((p) => {
       const li = el("li", { className: "item", parent: ul });
       const btn = el("button", {
         className: "nav-anchor",
@@ -43,19 +55,22 @@ export function Blog({ posts = [] } = {}) {
       });
       btn.type = "button";
 
-      btn.addEventListener("click", () => {
-        ul.querySelectorAll(".item").forEach(n => n.classList.remove("item-selected"));
-        li.classList.add("item-selected");
-        renderPost(p);
-        window.scrollTo(0, 0);
-        setTitle("blog");
-      });
+      if (p.id === activePost?.id) li.classList.add("item-selected");
 
-      if (i === 0) li.classList.add("item-selected");
+      btn.addEventListener("click", () => {
+        const path = "/blog/" + (p.id || "");
+        if (onNavigate) {
+          onNavigate(path);
+        } else {
+          ul.querySelectorAll(".item").forEach(n => n.classList.remove("item-selected"));
+          li.classList.add("item-selected");
+          renderPost(p);
+          window.scrollTo(0, 0);
+        }
+      });
     });
   }
 
-  renderPost(posts[0]);
+  renderPost(activePost);
   buildList();
-  setTitle("blog");
 }
